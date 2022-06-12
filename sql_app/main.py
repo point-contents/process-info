@@ -20,7 +20,7 @@ def get_db():
         db.close()
 
 
-@app.post("/process/", response_model=schemas.Process)
+@app.post("/process/", response_model=schemas.ProcessOut)
 def create_process(name: str, db: Session = Depends(get_db), host_id: str = "generic", source: str = "generic" , destination: str = "generic"):
     return crud.create_process(db=db, name=name, host_id=host_id, source=source, destination=destination)
 
