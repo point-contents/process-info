@@ -2,20 +2,28 @@ from typing import List, Union
 
 from pydantic import BaseModel
 
-class Process(BaseModel):
+class ExtendedBaseModel(BaseModel):
+    class Config:
+        orm_mode = True
+
+class Process(ExtendedBaseModel):
     id: str
     name: str
     host: str
     source: str
     destination: str
 
-class ProcessOut(BaseModel):
+class ProcessOut(ExtendedBaseModel):
     id: str
     name: str
     host: str | None = None
     source: str | None = None
-    destination: str | None = None 
+    destination: str | None = None
 
-    class Config:
-        orm_mode = True
+class HostOut(ExtendedBaseModel):
+    id: str
+    name: str
+    source: str | None
+    destination: str | None
+
 

@@ -13,6 +13,18 @@ def create_process(db: Session, name: str, host_id: str, source: str, destinatio
     db.refresh(db_process)
     return db_process
 
-def get_all_process(db: Session, skip: int = 0, limit: int = 100):
+def get_process_by_name(db: Session, name: str):
+    return db.query(models.Process).filter(models.Process.name == host_id).all()
+
+def get_process_by_host_id(db: Session, host_id: str):
+    return db.query(models.Process).filter(models.Process.host == host_id).all()
+
+def get_process_by_source(db: Session, source: str):
+    return db.query(models.Process).filter(models.Process.source == source).all()
+
+def get_process_by_destination(db: Session, destination: str):
+    return db.query(models.Process).filter(models.Process.source == destination).all()
+
+def get_all_process(db: Session):
     return db.query(models.Process).all()
 
