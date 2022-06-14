@@ -25,6 +25,13 @@ def get_process_by_source(db: Session, source: str):
 def get_process_by_destination(db: Session, destination: str):
     return db.query(models.Process).filter(models.Process.source == destination).all()
 
+def get_process_exact(db: Session, name: str, host_id: str, source: str, destination: str):
+    db_obj = db.query(models.Process).filter(models.Process.name == name)
+    print(db_obj)
+    return db_obj
+
+
+
 def get_all_process(db: Session):
     return db.query(models.Process).all()
 

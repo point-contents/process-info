@@ -23,6 +23,13 @@ def get_db():
 def create_process(name: str, db: Session = Depends(get_db), host_id: str = "generic", source: str = "generic" , destination: str = "generic"):
     return crud.create_process(db=db, name=name, host_id=host_id, source=source, destination=destination)
 
+@app.get("/doihaveanid/", response_model=schemas.FoundProcess)
+def search_for_process(name: str, db: Session = Depends(get_db), host_id: str = "generic", source: str = "generic", destination: str = "generic"):
+    exact_match = crud.get_process_exact(db, name = name, host_id = host_id, source = source, destination = destination)
+    if exact_match:
+        return exact_match;
+
+
 @app.get("/processes/{process}", response_model=schemas.Process)
 def read_process(process: str, db: Session = Depends(get_db)):
     db_process = crud.get_process(db, process_uuid=process)

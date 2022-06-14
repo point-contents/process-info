@@ -20,6 +20,9 @@ class ProcessOut(ExtendedBaseModel):
     source: str | None = None
     destination: str | None = None
 
+class FoundProcess(ExtendedBaseModel):
+    id: str
+
 class HostOut(ExtendedBaseModel):
     id: str
     name: str
