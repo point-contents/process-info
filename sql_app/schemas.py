@@ -8,6 +8,7 @@ class ExtendedBaseModel(BaseModel):
 
 class Process(ExtendedBaseModel):
     id: str
+    full_id: str
     name: str
     host: str
     source: str

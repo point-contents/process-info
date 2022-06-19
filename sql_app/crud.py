@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
-import uuid
+#import uuid
+import secrets
 
 from . import models, schemas
 
@@ -7,7 +8,13 @@ def get_process(db: Session, process_uuid: str):
     return db.query(models.Process).filter(models.Process.id == process_uuid).first()
 
 def create_process(db: Session, name: str, host_id: str, source: str, destination: str):
-    db_process = models.Process(id=str(uuid.uuid1()), name=name, host=host_id, source=source, destination=destination)
+    """
+    Create a random hash, secrets is unnecessary but helpful to get something random
+    """
+    full_id = secrets.token_hex(nbytes=32)
+    short_id = full_id[0:5]
+
+    db_process = models.Process(id=str(short_id), full_id=full_id,  name=name, host=host_id, source=source, destination=destination)
     db.add(db_process)
     db.commit()
     db.refresh(db_process)
@@ -29,8 +36,6 @@ def get_process_exact(db: Session, name: str, host_id: str, source: str, destina
     db_obj = db.query(models.Process).filter(models.Process.name == name)
     print(db_obj)
     return db_obj
-
-
 
 def get_all_process(db: Session):
     return db.query(models.Process).all()

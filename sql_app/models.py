@@ -8,6 +8,7 @@ class Process(Base):
     __tablename__ = "processes"
 
     id = Column(String, primary_key=True, index=True)
+    full_id = Column(String, unique=True, index=True)
     name = Column(String, unique=False, index=True)
     host = Column(String, unique=False, index=True)
     source = Column(String, unique=False, index=True)
