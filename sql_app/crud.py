@@ -33,6 +33,7 @@ def get_process_by_destination(db: Session, destination: str):
 
 def get_process_exact(db: Session, name: str, host_id: str, source: str, destination: str):
     db_obj = db.query(models.Process).filter(models.Process.name == name)
+    db_obj = db.query(models.Process).filter(models.Process.name == name)
     print(db_obj)
     return db_obj
 

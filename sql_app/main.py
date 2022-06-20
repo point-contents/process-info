@@ -29,7 +29,6 @@ def search_for_process(name: str, db: Session = Depends(get_db), host_id: str = 
     if exact_match:
         return exact_match;
 
-
 @app.get("/processes/{process}", response_model=schemas.Process)
 def read_process(process: str, db: Session = Depends(get_db)):
     db_process = crud.get_process(db, process_uuid=process)
