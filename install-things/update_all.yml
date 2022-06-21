@@ -1,0 +1,72 @@
+---
+
+# - name: Download Git Dependencies
+#   hosts: all
+#   become: yes
+#   gather_facts: yes
+# 
+#   tasks: 
+#   - name: install list of packages
+#     yum:
+#       name: "{{packages}}"
+#       state: latest
+#     tags:
+#       - dependencies
+# 
+#   vars:
+#     packages:
+#       - gcc
+#       - openssl-devel
+#       - curl-devel
+#       - expat-devel
+# 
+# - name: Download and Unpack Git
+#   hosts: all
+#   become: no
+#   gather_facts: no
+# 
+#   vars:
+#     link: >-
+#        https://github.com/git/git/archive/refs/tags/v2.30.0.tar.gz
+#     tar_location:
+#       /home/ed/git.tar.gz
+# 
+#   tasks:
+#   - name: download git
+#     get_url:
+#       url: "{{link}}"
+#       dest: "{{tar_location}}"
+#       mode: "744"
+#       timeout: 30
+#     tags:
+#       - downloads
+# 
+#   - name: unzip download
+#     unarchive:
+#       src: "{{tar_location}}"
+#       dest: "/home/ed/"
+#       remote_src: yes
+#     tags:
+#       - downloads
+
+
+- name: Build Git
+  hosts: all
+  become: no
+  gather_facts: no
+
+  vars:
+    build_type: "prefix=/usr install install-doc install-html install-info"
+
+  tasks:
+    - name: Run Make
+      make:
+        chdir: /home/ed/git-2.30.0
+
+    - name: Run Make Full
+      make:
+        chdir: /home/ed/git-2.30.0
+        target: install
+        
+
+
